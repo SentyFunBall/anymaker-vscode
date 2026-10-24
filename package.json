@@ -1,8 +1,8 @@
 {
-  "name": "Anymaker for VSCode",
-  "displayName": "anymaker-vscode",
+  "name": "anymaker-vscode",
+  "displayName": "Anymaker for VS Code",
   "description": "Adds Anymaker's in-game GeoScript language support to Visual Studio Code",
-  "version": "0.1",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.140.0"
   },
@@ -133,5 +133,9 @@
     "typescript": "^7.0.2",
     "vitest": "^5.0.4",
     "vscode-languageclient": "^10.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SentyFunBall/anymaker-vscode.git"
   }
 }
