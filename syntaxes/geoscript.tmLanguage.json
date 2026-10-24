@@ -1,0 +1,244 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "GeoScript",
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#events"
+		},
+		{
+			"include": "#block-input"
+		},
+		{
+			"include": "#block-output"
+		},
+		{
+			"include": "#variable-declaration"
+		},
+		{
+			"include": "#parameter-declaration"
+		},
+		{
+			"include": "#parameter-reference"
+		},
+		{
+			"include": "#block-pin"
+		},
+		{
+			"include": "#variable-reference"
+		},
+		{
+			"include": "#function-definition"
+		},
+		{
+			"include": "#function-call"
+		},
+		{
+			"include": "#types"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#builtin-func-call"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#operators"
+		}
+	],
+	"repository": {
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.line.hash.geoscript",
+					"match": "#.*$"
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.geoscript",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.geoscript",
+					"match": "\\\\."
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric.geoscript",
+					"match": "\\b\\d+(\\.\\d+)?\\b"
+				}
+			]
+		},
+		"types": {
+			"patterns": [
+				{
+					"name": "storage.type.geoscript",
+					"match": "\\b(integer|fractional|analogue|string|bool)\\b"
+				}
+			]
+		},
+		"operators": {
+			"patterns": [
+				{
+					"name": "keyword.operator.comparison.geoscript",
+					"match": "\\+|\\-|\\*|\\/|==|!=|<=|>=|<|>|&&|\\|\\||!|\\="
+				}
+			]
+		},
+		"variable-declaration": {
+			"match": "\\b(define)\\s+(var|list)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+			"captures": {
+				"1": {
+					"name": "keyword.other.variable.geoscript"
+				},
+				"2": {
+					"name": "keyword.other.variable.geoscript"
+				},
+				"3": {
+					"name": "storage.type.geoscript"
+				},
+				"4": {
+					"name": "variable.other.readwrite.geoscript"
+				}
+			}
+		},
+		"variable-reference": {
+			"match": "\\b(var)\\s+(\\w+)\\b",
+			"captures": {
+				"1": {
+					"name": "keyword.other.variable.geoscript"
+				},
+				"2": {
+					"name": "variable.other.readwrite.geoscript"
+				}
+			}
+		},
+		"parameter-declaration": {
+			"match": "\\b(integer|fractional|analogue|string|bool)\\s+([A-Za-z_]\\w*)",
+			"captures": {
+				"1": {
+					"name": "storage.type.geoscript"
+				},
+				"2": {
+					"name": "variable.other.readwrite.geoscript"
+				}
+			}
+		},
+		"parameter-reference": {
+			"match": "\\b(param)\\s+(\\w+)\\b",
+			"captures": {
+				"1": {
+					"name": "keyword.other.parameter.geoscript"
+				},
+				"2": {
+					"name": "variable.other.readwrite.geoscript"
+				}
+			}
+		},
+		"block-input": {
+			"match": "\\b(in)\\s+(.+?)\\.([A-Za-z_]\\w*)",
+			"captures": {
+				"1": {
+					"name": "keyword.control.geoscript"
+				},
+				"2": {
+					"name": "variable.other.object.geoscript"
+				},
+				"3": {
+					"name": "variable.other.input.geoscript"
+				}
+			}
+		},
+		"block-output": {
+			"match": "\\b(out)\\s+(.+?)\\.([A-Za-z_]\\w*)",
+			"captures": {
+				"1": {
+					"name": "keyword.control.geoscript"
+				},
+				"2": {
+					"name": "variable.other.object.geoscript"
+				},
+				"3": {
+					"name": "variable.other.output.geoscript"
+				}
+			}
+		},
+		"events": {
+			"patterns": [
+				{
+					"name": "entity.name.type.geoscript",
+					"match": "\\b(on_tick)\\b"
+				}
+			]
+		},
+		"function-definition": {
+			"name": "meta.function.definition.geoscript",
+			"begin": "\\b(define)\\s+(function)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s*\\(",
+			"beginCaptures": {
+				"1": {
+					"name": "storage.type.function.geoscript"
+				},
+				"2": {
+					"name": "storage.type.function.geoscript"
+				},
+				"3": {
+					"name": "entity.name.function.geoscript"
+				}
+			},
+			"end": "\\)",
+			"patterns": [
+				{
+					"include": "#parameter-declaration"
+				}
+			]
+		},
+		"function-call": {
+			"match": "\\b(call)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+			"captures": {
+				"0": {
+					"name": "keyword.control.geoscript"
+				},
+				"1": {
+					"name": "meta.function.call.geoscript"
+				},
+				"2": {
+					"name": "entity.name.function.geoscript"
+				}
+			}
+		},
+		"builtin-func-call": {
+			"match": "\\b([A-Za-z_][A-Za-z0-9_]*)(\\s*)(?=\\()",
+			"captures": {
+				"1": {
+					"name": "entity.name.function.geoscript"
+				}
+			}
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.geoscript",
+					"match": "\\b(if|else|elseif|while|for|foreach)\\b"
+				},
+				{
+					"name": "constant.language.boolean.geoscript",
+					"match": "\\b(true|false)\\b"
+				}
+			]
+		}
+	},
+	"scopeName": "source.geoscript"
+}

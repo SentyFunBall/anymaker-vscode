@@ -1,0 +1,137 @@
+{
+  "name": "Anymaker for VSCode",
+  "displayName": "anymaker-vscode",
+  "description": "Adds Anymaker's in-game GeoScript language support to Visual Studio Code",
+  "version": "0.1",
+  "engines": {
+    "vscode": "^1.140.0"
+  },
+  "main": "./out/extension/src/extension.js",
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "geoscript",
+        "aliases": [
+          "GeoScript",
+          "geoscript"
+        ],
+        "extensions": [
+          ".txt",
+          ".geoscript"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "geoscript",
+        "scopeName": "source.geoscript",
+        "path": "./syntaxes/geoscript.tmLanguage.json"
+      }
+    ],
+    "configuration": [
+      {
+        "title": "Anymaker for VS Code",
+        "properties": {
+          "geoscript.core.anymakerinstallationpath": {
+            "type": "string",
+            "default": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Anymaker",
+            "description": "Path to the Anymaker installation. E.g `C:\\Program Files (x86)\\Steam\\steamapps\\common\\Anymaker`"
+          }
+        }
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "anymaker",
+          "title": "Anymaker",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "anymaker": [
+        {
+          "id": "anymaker.microcontrollerConfig",
+          "name": "Microcontroller Context",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "anymaker.microcontrollerConfig",
+        "contents": "No Anymaker file open.",
+        "when": "!anymaker.supportedFileActive"
+      },
+      {
+        "view": "anymaker.microcontrollerConfig",
+        "contents": "Open a folder or workspace to add components to a microcontroller.\n[Open Folder](command:vscode.openFolder)",
+        "when": "anymaker.supportedFileActive && workbenchState == empty"
+      },
+      {
+        "view": "anymaker.microcontrollerConfig",
+        "contents": "No components have been added to this microcontroller yet.\n[Add Component](command:anymaker.addComponent)",
+        "when": "anymaker.supportedFileActive && workbenchState != empty"
+      }
+    ],
+    "commands": [
+      {
+        "command": "anymaker.addComponent",
+        "title": "Anymaker: Add Component",
+        "icon": "$(add)"
+      },
+      {
+        "command": "anymaker.removeComponent",
+        "title": "Remove Component",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "anymaker.renameComponent",
+        "title": "Rename Component",
+        "icon": "$(edit)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "anymaker.addComponent",
+          "when": "view == anymaker.microcontrollerConfig",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "anymaker.renameComponent",
+          "when": "view == anymaker.microcontrollerConfig && viewItem == component",
+          "group": "inline@1"
+        },
+        {
+          "command": "anymaker.removeComponent",
+          "when": "view == anymaker.microcontrollerConfig && viewItem == component",
+          "group": "inline@2"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "test": "vitest run",
+    "compile": "tsc -p tsconfig.json",
+    "watch": "tsc -w -p tsconfig.json"
+  },
+  "dependencies": {
+    "vscode-languageserver": "^10.1.2",
+    "vscode-languageserver-textdocument": "^1.0.15"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/vscode": "^1.140.0",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.4",
+    "vscode-languageclient": "^10.1.2"
+  }
+}
