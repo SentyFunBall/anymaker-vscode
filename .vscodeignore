@@ -11,3 +11,4 @@ tests/**
 tsconfig.json
 vitest.config.ts
 *.vsix
+esbuild.js

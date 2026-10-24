@@ -5,6 +5,13 @@
   "author": {
     "name": "SentyFunball"
   },
+  "publisher": "SentyFunball",
+  "galleryBanner": {
+    "color": "#C80000",
+    "theme": "dark"
+  },
+  "icon": "resources/icon.png",
+  "pricing": "Free",
   "version": "0.1.0",
   "engines": {
     "vscode": "^1.140.0"
