@@ -1,4 +1,13 @@
 .vscode/**
 .vscode-test/**
 .gitignore
-vsc-extension-quickstart.md
+.gitattributes
+
+extension/
+
+tests/**
+**/*.ts
+**/*.map
+tsconfig.json
+vitest.config.ts
+*.vsix
